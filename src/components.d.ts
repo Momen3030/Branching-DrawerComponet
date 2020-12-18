@@ -6,6 +6,9 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
+    interface BranchingDrawer {
+        "branchingNumber": number;
+    }
     interface MyComponent {
         /**
           * The first name
@@ -22,6 +25,12 @@ export namespace Components {
     }
 }
 declare global {
+    interface HTMLBranchingDrawerElement extends Components.BranchingDrawer, HTMLStencilElement {
+    }
+    var HTMLBranchingDrawerElement: {
+        prototype: HTMLBranchingDrawerElement;
+        new (): HTMLBranchingDrawerElement;
+    };
     interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {
     }
     var HTMLMyComponentElement: {
@@ -29,10 +38,14 @@ declare global {
         new (): HTMLMyComponentElement;
     };
     interface HTMLElementTagNameMap {
+        "branching-drawer": HTMLBranchingDrawerElement;
         "my-component": HTMLMyComponentElement;
     }
 }
 declare namespace LocalJSX {
+    interface BranchingDrawer {
+        "branchingNumber"?: number;
+    }
     interface MyComponent {
         /**
           * The first name
@@ -48,6 +61,7 @@ declare namespace LocalJSX {
         "middle"?: string;
     }
     interface IntrinsicElements {
+        "branching-drawer": BranchingDrawer;
         "my-component": MyComponent;
     }
 }
@@ -55,6 +69,7 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "branching-drawer": LocalJSX.BranchingDrawer & JSXBase.HTMLAttributes<HTMLBranchingDrawerElement>;
             "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
         }
     }

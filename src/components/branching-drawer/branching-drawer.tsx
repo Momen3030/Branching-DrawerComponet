@@ -13,6 +13,9 @@ export class BranchingDrawer {
   @Prop() branchOne: any;
   internalBranchOne: any[];
 
+  @Prop() branchTwo: any;
+  internalBranchTwo: any[];
+
   branchingArr: any = [
     {
       id: "tab-1",
@@ -20,46 +23,25 @@ export class BranchingDrawer {
       highlightText: "ffff",
       contant1: "das",
       dataTip: "dasda",
-      questions: [
-        // {
-        //   q:
-        //   {
-        //     id: "question-1",
-        //     contant: "Test1 Contant",
-        //     contentLabel: "Test1",
-        //     // highlightText:"terrwerwe1",
-        //     // dataTip:"fsdfsdf1"
-        //   }
-
-        // }
-        // ,
-        // {
-        //   q:
-        //   {
-        //     id: "question-2",
-        //     contant: "Test2 Contant2",
-        //     contentLabel: "Test1222",
-        //     highlightText: "terrwerwe1222",
-        //     dataTip: "fsdfsdf122222"
-        //   }
-
-        // }
-
-
-
-      ]
+      questions: []
     }, 2, 3, 4, 5];
 
   constructor() {
     if (this.branchOne != null) {
 
       this.internalBranchOne = JSON.parse(this.branchOne);
-      console.log(this.internalBranchOne);
+      // console.log(this.internalBranchOne);
 
 
     }
 
+    if (this.branchTwo != null) {
 
+      this.internalBranchTwo = JSON.parse(this.branchTwo);
+      console.log(this.internalBranchTwo);
+
+
+    }
 
 
 
@@ -85,9 +67,7 @@ export class BranchingDrawer {
 
         }
         else {
-
-              if(this.internalBranchOne[0].subBranches.length == 1){
-                 
+              if(this.internalBranchOne[0].subBranches.length == 1){   
           this.branchingArr.push(
             {
               id: "tab-1",
@@ -113,8 +93,6 @@ export class BranchingDrawer {
           );
 
               }else{
-                console.log(this.internalBranchOne[0].subBranches.length);
-
 
           this.branchingArr.push(
             {
@@ -168,88 +146,337 @@ export class BranchingDrawer {
       /////2///////
       else if (this.branchingNumber == 2) {
         this.branchingArr.length = 0;
-        this.branchingArr.push(
-          {
-            id: "tab-1",
-            contentLabel: "Test01",
-            highlightText: "terrwerwe0",
-            contant1: "Test0 Contant",
-            dataTip: "fsdfsdf0",
-            questions: [
-              // {
-              //   q:
-              //   {
-              //     id: "question-1",
-              //     contant: "Test1 Contant",
-              //     contentLabel: "Test1",
-              //     // highlightText:"terrwerwe1",
-              //     // dataTip:"fsdfsdf1"
-              //   }
+       
+        if (this.internalBranchOne[0].branchNumber == 0  &&  this.internalBranchTwo[0].branchNumber == 0  ) {
+          this.branchingArr.push(
+            {
+              id: "tab-1",
+              contentLabel: this.internalBranchOne[0].contentLabel,
+              highlightText: this.internalBranchOne[0].highlightText,
+              contant1: this.internalBranchOne[0].contant,
+              dataTip: this.internalBranchOne[0].dataTip,
+              questions: []
+            },
+            {
+              id: "tab-2",
+              contentLabel: this.internalBranchTwo[0].contentLabel,
+              highlightText: this.internalBranchTwo[0].highlightText,
+              contant1: this.internalBranchTwo[0].contant,
+              dataTip: this.internalBranchTwo[0].dataTip,
+              questions: []
+            }
 
-              // }
-              // ,
-              // {
-              //   q:
-              //   {
-              //     id: "question-2",
-              //     contant: "Test2 Contant2",
-              //     contentLabel: "Test1222",
-              //     highlightText: "terrwerwe1222",
-              //     dataTip: "fsdfsdf122222"
-              //   }
+          );
 
-              // }
+        }else if (this.internalBranchOne[0].branchNumber == 0  &&  this.internalBranchTwo[0].branchNumber > 0  ) {
+           if(this.internalBranchTwo[0].branchNumber == 1){
+            this.branchingArr.push(
+              {
+                id: "tab-1",
+                contentLabel: this.internalBranchOne[0].contentLabel,
+                highlightText: this.internalBranchOne[0].highlightText,
+                contant1: this.internalBranchOne[0].contant,
+                dataTip: this.internalBranchOne[0].dataTip,
+                questions: []
+              },
+              {
+                id: "tab-2",
+                contentLabel: this.internalBranchTwo[0].contentLabel,
+                highlightText: this.internalBranchTwo[0].highlightText,
+                contant1: this.internalBranchTwo[0].contant,
+                dataTip: this.internalBranchTwo[0].dataTip,
+                questions: [
+                  {
+                    q:
+                    {
+                      id: "question-2",
+                       contant: this.internalBranchTwo[0].subBranches[0].subOne.contant,
+                      contentLabel:this.internalBranchTwo[0].subBranches[0].subOne.contentLabel,
+                      highlightText:this.internalBranchTwo[0].subBranches[0].subOne.highlightText,
+                      dataTip:this.internalBranchTwo[0].subBranches[0].subOne.dataTip
+                    }
+  
+                  }
+                ]
+              }
+  
+            );
+           }else{
+            this.branchingArr.push(
+              {
+                id: "tab-1",
+                contentLabel: this.internalBranchOne[0].contentLabel,
+                highlightText: this.internalBranchOne[0].highlightText,
+                contant1: this.internalBranchOne[0].contant,
+                dataTip: this.internalBranchOne[0].dataTip,
+                questions: []
+              },
+              {
+                id: "tab-2",
+                contentLabel: this.internalBranchTwo[0].contentLabel,
+                highlightText: this.internalBranchTwo[0].highlightText,
+                contant1: this.internalBranchTwo[0].contant,
+                dataTip: this.internalBranchTwo[0].dataTip,
+                questions: [
+                  {
+                    q:
+                    {
+                      id: "question-3",
+                       contant: this.internalBranchTwo[0].subBranches[0].subOne.contant,
+                      contentLabel:this.internalBranchTwo[0].subBranches[0].subOne.contentLabel,
+                      highlightText:this.internalBranchTwo[0].subBranches[0].subOne.highlightText,
+                      dataTip:this.internalBranchTwo[0].subBranches[0].subOne.dataTip
+                    }
+  
+                  }
+                  ,
+                  {
+                    q:
+                    {
+                      id: "question-4",
+                      contant: (this.internalBranchTwo[0].subBranches[1].subTwo.contant?this.internalBranchTwo[0].subBranches[1].subTwo.contant:null),
+                      contentLabel:(this.internalBranchTwo[0].subBranches[1].subTwo.contentLabel?this.internalBranchTwo[0].subBranches[1].subTwo.contentLabel:null),
+                      highlightText:(this.internalBranchTwo[0].subBranches[1].subTwo.highlightText?this.internalBranchTwo[0].subBranches[1].subTwo.highlightText:null),
+                      dataTip:(this.internalBranchTwo[0].subBranches[1].subTwo.dataTip?this.internalBranchTwo[0].subBranches[1].subTwo.dataTip:null)
+                    }
+  
+                  }
+                ]
+              }
+    
+            );
+
+
+           }
+           
+          
+
+        }
 
 
 
-            ]
+        else if (this.internalBranchOne[0].branchNumber > 0  &&  this.internalBranchTwo[0].branchNumber == 0  ) {
+          if(this.internalBranchOne[0].branchNumber == 1){
+           this.branchingArr.push(
+            {
+              id: "tab-1",
+              contentLabel: this.internalBranchOne[0].contentLabel,
+              highlightText: this.internalBranchOne[0].highlightText,
+              contant1: this.internalBranchOne[0].contant,
+              dataTip: this.internalBranchOne[0].dataTip,
+              questions: [
+                {
+                  q:
+                  {
+                    id: "question-1",
+                     contant: this.internalBranchOne[0].subBranches[0].subOne.contant,
+                    contentLabel:this.internalBranchOne[0].subBranches[0].subOne.contentLabel,
+                    highlightText:this.internalBranchOne[0].subBranches[0].subOne.highlightText,
+                    dataTip:this.internalBranchOne[0].subBranches[0].subOne.dataTip
+                  }
+
+                }
+              ]
+            },
+             {
+              id: "tab-2",
+              contentLabel: this.internalBranchTwo[0].contentLabel,
+              highlightText: this.internalBranchTwo[0].highlightText,
+              contant1: this.internalBranchTwo[0].contant,
+              dataTip: this.internalBranchTwo[0].dataTip,
+              questions: []
+ 
+                 }
+               
+             
+ 
+           );
+          }else{
+           this.branchingArr.push(
+            {
+              id: "tab-1",
+              contentLabel: this.internalBranchOne[0].contentLabel,
+              highlightText: this.internalBranchOne[0].highlightText,
+              contant1: this.internalBranchOne[0].contant,
+              dataTip: this.internalBranchOne[0].dataTip,
+              questions: [
+                {
+                  q:
+                  {
+                    id: "question-1",
+                     contant: this.internalBranchOne[0].subBranches[0].subOne.contant,
+                    contentLabel:this.internalBranchOne[0].subBranches[0].subOne.contentLabel,
+                    highlightText:this.internalBranchOne[0].subBranches[0].subOne.highlightText,
+                    dataTip:this.internalBranchOne[0].subBranches[0].subOne.dataTip
+                  },
+                  
+
+                }
+                ,
+                {
+                  q:
+                  {
+                    id: "question-2",
+                    contant: (this.internalBranchOne[0].subBranches[1].subTwo.contant?this.internalBranchOne[0].subBranches[1].subTwo.contant:null),
+                    contentLabel:(this.internalBranchOne[0].subBranches[1].subTwo.contentLabel?this.internalBranchOne[0].subBranches[1].subTwo.contentLabel:null),
+                    highlightText:(this.internalBranchOne[0].subBranches[1].subTwo.highlightText?this.internalBranchOne[0].subBranches[1].subTwo.highlightText:null),
+                    dataTip:(this.internalBranchOne[0].subBranches[1].subTwo.dataTip?this.internalBranchOne[0].subBranches[1].subTwo.dataTip:null)
+                  }
+
+                }
+              ]
+            } 
+             ,
+
+             {
+              id: "tab-2",
+              contentLabel: this.internalBranchTwo[0].contentLabel,
+              highlightText: this.internalBranchTwo[0].highlightText,
+              contant1: this.internalBranchTwo[0].contant,
+              dataTip: this.internalBranchTwo[0].dataTip,
+              questions: []
+            }
+            
+           );
+           
+
           }
-          ,
+          
+         
 
-          {
-            id: "tab-2",
-            contentLabel: "Test02",
-            highlightText: "terrwerwe0",
-            contant1: "Test0 Contant",
-            dataTip: "fsdfsdf0",
-            questions: [
-              // {
-              //   q:
-              //   {
-              //     id: "question-3",
-              //     contant: "Test1 Contant",
-              //     contentLabel: "Test1444",
-              //     // highlightText:"terrwerwe1",
-              //     // dataTip:"fsdfsdf1"
-              //   }
+       }
 
-              // }
-              // ,
-              // {
-              //   q:
-              //   {
-              //     id: "question-4",
-              //     contant: "Test2 Contant2",
-              //     contentLabel: "Test555555",
-              //     highlightText: "terrwerwe1222",
-              //     dataTip: "fsdfsdf122222"
-              //   }
+        else {
+              if(this.internalBranchOne[0].subBranches.length == 1 || this.internalBranchTwo[0].subBranches.length == 1){   
+          this.branchingArr.push(
+            {
+              id: "tab-1",
+              contentLabel: this.internalBranchOne[0].contentLabel,
+              highlightText: this.internalBranchOne[0].highlightText,
+              contant1: this.internalBranchOne[0].contant,
+              dataTip: this.internalBranchOne[0].dataTip,
+              questions: [
+                {
+                  q:
+                  {
+                    id: "question-1",
+                     contant: this.internalBranchOne[0].subBranches[0].subOne.contant,
+                    contentLabel:this.internalBranchOne[0].subBranches[0].subOne.contentLabel,
+                    highlightText:this.internalBranchOne[0].subBranches[0].subOne.highlightText,
+                    dataTip:this.internalBranchOne[0].subBranches[0].subOne.dataTip
+                  }
 
-              // }
+                }
+              ]
+            }
+            ,
+            {
+              id: "tab-2",
+              contentLabel: this.internalBranchTwo[0].contentLabel,
+              highlightText: this.internalBranchTwo[0].highlightText,
+              contant1: this.internalBranchTwo[0].contant,
+              dataTip: this.internalBranchTwo[0].dataTip,
+              questions: [
+                {
+                  q:
+                  {
+                    id: "question-2",
+                     contant: this.internalBranchTwo[0].subBranches[0].subOne.contant,
+                    contentLabel:this.internalBranchTwo[0].subBranches[0].subOne.contentLabel,
+                    highlightText:this.internalBranchTwo[0].subBranches[0].subOne.highlightText,
+                    dataTip:this.internalBranchTwo[0].subBranches[0].subOne.dataTip
+                  }
+
+                }
+              ]
+            }
+
+          );
+
+              }else{
+
+          this.branchingArr.push(
+            {
+              id: "tab-1",
+              contentLabel: this.internalBranchOne[0].contentLabel,
+              highlightText: this.internalBranchOne[0].highlightText,
+              contant1: this.internalBranchOne[0].contant,
+              dataTip: this.internalBranchOne[0].dataTip,
+              questions: [
+                {
+                  q:
+                  {
+                    id: "question-1",
+                     contant: this.internalBranchOne[0].subBranches[0].subOne.contant,
+                    contentLabel:this.internalBranchOne[0].subBranches[0].subOne.contentLabel,
+                    highlightText:this.internalBranchOne[0].subBranches[0].subOne.highlightText,
+                    dataTip:this.internalBranchOne[0].subBranches[0].subOne.dataTip
+                  },
+                  
+
+                }
+                ,
+                {
+                  q:
+                  {
+                    id: "question-2",
+                    contant: (this.internalBranchOne[0].subBranches[1].subTwo.contant?this.internalBranchOne[0].subBranches[1].subTwo.contant:null),
+                    contentLabel:(this.internalBranchOne[0].subBranches[1].subTwo.contentLabel?this.internalBranchOne[0].subBranches[1].subTwo.contentLabel:null),
+                    highlightText:(this.internalBranchOne[0].subBranches[1].subTwo.highlightText?this.internalBranchOne[0].subBranches[1].subTwo.highlightText:null),
+                    dataTip:(this.internalBranchOne[0].subBranches[1].subTwo.dataTip?this.internalBranchOne[0].subBranches[1].subTwo.dataTip:null)
+                  }
+
+                }
+              ]
+            },
+            {
+              id: "tab-2",
+              contentLabel: this.internalBranchTwo[0].contentLabel,
+              highlightText: this.internalBranchTwo[0].highlightText,
+              contant1: this.internalBranchTwo[0].contant,
+              dataTip: this.internalBranchTwo[0].dataTip,
+              questions: [
+                {
+                  q:
+                  {
+                    id: "question-3",
+                     contant: this.internalBranchTwo[0].subBranches[0].subOne.contant,
+                    contentLabel:this.internalBranchTwo[0].subBranches[0].subOne.contentLabel,
+                    highlightText:this.internalBranchTwo[0].subBranches[0].subOne.highlightText,
+                    dataTip:this.internalBranchTwo[0].subBranches[0].subOne.dataTip
+                  }
+
+                }
+                ,
+                {
+                  q:
+                  {
+                    id: "question-4",
+                    contant: (this.internalBranchTwo[0].subBranches[1].subTwo.contant?this.internalBranchTwo[0].subBranches[1].subTwo.contant:null),
+                    contentLabel:(this.internalBranchTwo[0].subBranches[1].subTwo.contentLabel?this.internalBranchTwo[0].subBranches[1].subTwo.contentLabel:null),
+                    highlightText:(this.internalBranchTwo[0].subBranches[1].subTwo.highlightText?this.internalBranchTwo[0].subBranches[1].subTwo.highlightText:null),
+                    dataTip:(this.internalBranchTwo[0].subBranches[1].subTwo.dataTip?this.internalBranchTwo[0].subBranches[1].subTwo.dataTip:null)
+                  }
+
+                }
+              ]
+            }
+
+
+          );
 
 
 
-            ]
-          }
 
 
 
+              }
 
 
 
-        );
-
-
+        }
+       
+    
 
       }
 
@@ -613,11 +840,8 @@ export class BranchingDrawer {
         }
         else {
 
-          item.questions.map((item2, index) => {
-
+          item.questions.map((item2) => {
             qs0.push(item2)
-            console.log(qs0.length);
-
           });
 
 
@@ -925,31 +1149,6 @@ export class BranchingDrawer {
               }
             })()}
             {/* ///////////////////// end of 3 //////////////////////////////// */}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

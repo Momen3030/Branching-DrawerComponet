@@ -8,6 +8,7 @@ import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
     interface BranchingDrawer {
         "branchOne": any;
+        "branchTwo": any;
         "branchingNumber": number;
     }
     interface MyComponent {
@@ -46,6 +47,7 @@ declare global {
 declare namespace LocalJSX {
     interface BranchingDrawer {
         "branchOne"?: any;
+        "branchTwo"?: any;
         "branchingNumber"?: number;
     }
     interface MyComponent {

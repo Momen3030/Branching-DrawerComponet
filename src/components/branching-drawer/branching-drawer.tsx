@@ -10,51 +10,159 @@ import { Component, h, Prop } from '@stencil/core';
 export class BranchingDrawer {
   @Prop() branchingNumber: number;
 
-  branchingArr: any[] = [1, 2, 3, 4, 5];
+  @Prop() branchOne: any;
+  internalBranchOne: any[];
+
+  branchingArr: any = [
+    {
+      id: "tab-1",
+      contentLabel: "t",
+      highlightText: "ffff",
+      contant1: "das",
+      dataTip: "dasda",
+      questions: [
+        // {
+        //   q:
+        //   {
+        //     id: "question-1",
+        //     contant: "Test1 Contant",
+        //     contentLabel: "Test1",
+        //     // highlightText:"terrwerwe1",
+        //     // dataTip:"fsdfsdf1"
+        //   }
+
+        // }
+        // ,
+        // {
+        //   q:
+        //   {
+        //     id: "question-2",
+        //     contant: "Test2 Contant2",
+        //     contentLabel: "Test1222",
+        //     highlightText: "terrwerwe1222",
+        //     dataTip: "fsdfsdf122222"
+        //   }
+
+        // }
+
+
+
+      ]
+    }, 2, 3, 4, 5];
 
   constructor() {
+    if (this.branchOne != null) {
+
+      this.internalBranchOne = JSON.parse(this.branchOne);
+      console.log(this.internalBranchOne);
+
+
+    }
+
+
+
+
+
+
+
+
+
+
     if (this.branchingArr.length != this.branchingNumber) {
       if (this.branchingNumber == 1) {
         this.branchingArr.length = 0;
-        console.log(this.branchingNumber);
-        console.log(this.branchingArr);
+        if (this.internalBranchOne[0].branchNumber == 0) {
+          this.branchingArr.push(
+            {
+              id: "tab-1",
+              contentLabel: this.internalBranchOne[0].contentLabel,
+              highlightText: this.internalBranchOne[0].highlightText,
+              contant1: this.internalBranchOne[0].contant,
+              dataTip: this.internalBranchOne[0].dataTip,
+              questions: []
+            }
+          );
 
-        this.branchingArr.push(
-          {
-            id: "tab-1",
-            contentLabel: "Test01",
-            highlightText: "terrwerwe0",
-            contant1: "Test0 Contant",
-            dataTip: "fsdfsdf0",
-            questions: [
-              {
-                q:
+        }
+        else {
+
+              if(this.internalBranchOne[0].subBranches.length == 1){
+                 
+          this.branchingArr.push(
+            {
+              id: "tab-1",
+              contentLabel: this.internalBranchOne[0].contentLabel,
+              highlightText: this.internalBranchOne[0].highlightText,
+              contant1: this.internalBranchOne[0].contant,
+              dataTip: this.internalBranchOne[0].dataTip,
+              questions: [
                 {
-                  id: "question-1",
-                  contant: "Test1 Contant",
-                  contentLabel: "Test1",
-                  // highlightText:"terrwerwe1",
-                  // dataTip:"fsdfsdf1"
+                  q:
+                  {
+                    id: "question-1",
+                     contant: this.internalBranchOne[0].subBranches[0].subOne.contant,
+                    contentLabel:this.internalBranchOne[0].subBranches[0].subOne.contentLabel,
+                    highlightText:this.internalBranchOne[0].subBranches[0].subOne.highlightText,
+                    dataTip:this.internalBranchOne[0].subBranches[0].subOne.dataTip
+                  }
+
                 }
+              ]
+            }
+
+          );
+
+              }else{
+                console.log(this.internalBranchOne[0].subBranches.length);
+
+
+          this.branchingArr.push(
+            {
+              id: "tab-1",
+              contentLabel: this.internalBranchOne[0].contentLabel,
+              highlightText: this.internalBranchOne[0].highlightText,
+              contant1: this.internalBranchOne[0].contant,
+              dataTip: this.internalBranchOne[0].dataTip,
+              questions: [
+                {
+                  q:
+                  {
+                    id: "question-1",
+                     contant: this.internalBranchOne[0].subBranches[0].subOne.contant,
+                    contentLabel:this.internalBranchOne[0].subBranches[0].subOne.contentLabel,
+                    highlightText:this.internalBranchOne[0].subBranches[0].subOne.highlightText,
+                    dataTip:this.internalBranchOne[0].subBranches[0].subOne.dataTip
+                  }
+
+                }
+                ,
+                {
+                  q:
+                  {
+                    id: "question-2",
+                    contant: (this.internalBranchOne[0].subBranches[1].subTwo.contant?this.internalBranchOne[0].subBranches[1].subTwo.contant:null),
+                    contentLabel:(this.internalBranchOne[0].subBranches[1].subTwo.contentLabel?this.internalBranchOne[0].subBranches[1].subTwo.contentLabel:null),
+                    highlightText:(this.internalBranchOne[0].subBranches[1].subTwo.highlightText?this.internalBranchOne[0].subBranches[1].subTwo.highlightText:null),
+                    dataTip:(this.internalBranchOne[0].subBranches[1].subTwo.dataTip?this.internalBranchOne[0].subBranches[1].subTwo.dataTip:null)
+                  }
+
+                }
+              ]
+            }
+
+          );
+
+
+
+
+
 
               }
-              ,
-              {
-                q:
-                {
-                  id: "question-2",
-                  contant: "Test2 Contant2",
-                  contentLabel: "Test1222",
-                  highlightText: "terrwerwe1222",
-                  dataTip: "fsdfsdf122222"
-                }
-
-              }
 
 
 
-            ]
-          });
+        }
+
       }
 
       /////2///////
@@ -506,7 +614,7 @@ export class BranchingDrawer {
         else {
 
           item.questions.map((item2, index) => {
-            console.log(index)
+
             qs0.push(item2)
             console.log(qs0.length);
 

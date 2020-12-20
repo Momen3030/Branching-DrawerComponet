@@ -1,15 +1,94 @@
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
-    <title>Stencil Component Starter</title>
 
-    <script type="module" src="/build/branchingdrawer.esm.js"></script>
-    <script nomodule src="/build/branchingdrawer.js"></script>
-  </head>
-  <body>
-  <branching-drawer branching-number="4"></branching-drawer>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
+  <title>Stencil Component Starter</title>
 
-  </body>
+  <script type="module" src="/build/branchingdrawer.esm.js"></script>
+  <script nomodule src="/build/branchingdrawer.js"></script>
+</head>
+
+<body>
+  <branching-drawer branching-number="1" branch-one='[{
+  "contentLabel": "from html",
+  "highlightText": "from html",
+  "contant": "Test0 from html",
+  "dataTip": "from html",
+  "branchNumber":1,
+  "subBranches": [
+    {
+      "subOne":
+      {
+        "contant": "Test1ddsContant",
+        "contentLabel": "Test1",
+         "highlightText":"terrwerwe1",
+         "dataTip":"fsdfsdf1"
+      }
+ 
+   },
+   {
+     "subTwo":
+     {
+       "contant": "Test2ddsContant",
+       "contentLabel": "Test2",
+        "highlightText":"terrwerwe2",
+        "dataTip":"fsdfsdf2"
+     }
+
+    }
+ 
+   ] 
+
+
+
+}  
+  ]'></branching-drawer>
+
+ 
+
+
+  <!-- "subBranches": [
+   {
+     "subOne":
+     {
+       "contant": "Test1ddsContant",
+       "contentLabel": "Test1",
+        "highlightText":"terrwerwe1",
+        "dataTip":"fsdfsdf1"
+     }
+
+  },
+
+  {
+    "subTwo":
+    {
+      "contant": "Test2ddsContant",
+      "contentLabel": "Test2",
+       "highlightText":"terrwerwe2",
+       "dataTip":"fsdfsdf2"
+    }
+
+ }
+
+  ] -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
 </html>

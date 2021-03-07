@@ -12,6 +12,7 @@ export namespace Components {
         "branchThree": any;
         "branchTwo": any;
         "branchingNumber": number;
+        "content": string;
     }
     interface MyComponent {
         /**
@@ -53,6 +54,8 @@ declare namespace LocalJSX {
         "branchThree"?: any;
         "branchTwo"?: any;
         "branchingNumber"?: number;
+        "content"?: string;
+        "onUpdateSatisfiedEvent"?: (event: CustomEvent<any>) => void;
     }
     interface MyComponent {
         /**

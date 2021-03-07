@@ -1,9 +1,9 @@
-import { Component, h, Prop } from '@stencil/core';
+import { Component, EventEmitter, h, Prop ,Event,State} from '@stencil/core';
 // import { If, Then, ElseIf, Else } from 'react-if-elseif-else-render';
 
 @Component({
   tag: 'branching-drawer',
-  styleUrl: 'branching-drawer.css',
+  styleUrl: 'branching-drawer.scss',
   shadow: true,
 })
 
@@ -31,32 +31,64 @@ export class BranchingDrawer {
       dataTip: "dasda",
       questions: []
     }, 2, 3, 4, 5];
-
+    @Prop() content: string;
+    @State() satate: any[] = [];
+    @Event() updateSatisfiedEvent: EventEmitter<any>;
+  
+    allClicked(ind){
+      console.log(ind);
+      
+        // const obj2=this.satate.find((o)=>o.index==ind);
+        const obj2 = this.satate.findIndex((o) => o.index == ind);
+        this.satate[obj2]["clicked"] = true;
+        // console.log(obj2);
+        // console.log(this.satate);
+        if (this.satate.every((ox) => ox.clicked)) {
+    
+          this.updateSatisfiedEvent.emit(this.content)
+    
+          console.log("All clicked");
+    
+        }
+    }
+  
+    private getContent(): any {
+  
+      const con = JSON.parse(this.content);
+      return con.attributes;
+    }
+  
+   
   constructor() {
-    if (this.branchOne != null) {
 
-      this.internalBranchOne = JSON.parse(this.branchOne);
+    for (let i = 0; i < this.getContent().branchingNumber; i++) {
+      this.satate.push({ index: i, clicked: false });
+    }
+
+    if (this.getContent().branchOne != null) {
+
+      this.internalBranchOne = this.getContent().branchOne;
       // console.log(this.internalBranchOne);
     }
-    if (this.branchTwo != null) {
+    if (this.getContent().branchTwo != null) {
 
-      this.internalBranchTwo = JSON.parse(this.branchTwo);
+      this.internalBranchTwo = this.getContent().branchTwo;
       // console.log(this.internalBranchTwo);
     }
-    if (this.branchThree != null) {
+    if (this.getContent().branchThree != null) {
 
-      this.internalBranchThree = JSON.parse(this.branchThree);
+      this.internalBranchThree = this.getContent().branchThree;
       // console.log(this.internalBranchThree);
     }
 
-    if (this.branchFour != null) {
+    if (this.getContent().branchFour != null) {
 
-      this.internalBranchFour = JSON.parse(this.branchFour);
-      console.log(this.internalBranchFour);
+      this.internalBranchFour = this.getContent().branchFour;
+      // console.log(this.internalBranchFour);
     }
 
-    if (this.branchingArr.length != this.branchingNumber) {
-      if (this.branchingNumber == 1) {
+    if (this.branchingArr.length != this.getContent().branchingNumber) {
+      if (this.getContent().branchingNumber == 1) {
         this.branchingArr.length = 0;
         if (this.internalBranchOne[0].branchNumber == 0) {
           this.branchingArr.push(
@@ -149,7 +181,7 @@ export class BranchingDrawer {
       }
 
       /////2///////
-      else if (this.branchingNumber == 2) {
+      else if (this.getContent().branchingNumber == 2) {
         this.branchingArr.length = 0;
        
         if (this.internalBranchOne[0].branchNumber == 0  &&  this.internalBranchTwo[0].branchNumber == 0  ) {
@@ -488,7 +520,7 @@ export class BranchingDrawer {
       /////////////end of 2///////////////////////
 
 /////3 new ///////
-else if (this.branchingNumber == 3) {
+else if (this.getContent().branchingNumber == 3) {
     this.branchingArr.length = 0;
    
     if (this.internalBranchOne[0].branchNumber == 0  &&  this.internalBranchTwo[0].branchNumber == 0  && this.internalBranchThree[0].branchNumber == 0  ) {
@@ -872,7 +904,7 @@ else if (this.branchingNumber == 3) {
 
   /////////////start of  new 4///////////////////////
 
-  else if (this.branchingNumber == 4) {
+  else if (this.getContent().branchingNumber == 4) {
     this.branchingArr.length = 0;
    
     if (this.internalBranchOne[0].branchNumber == 0  &&  this.internalBranchTwo[0].branchNumber == 0  
@@ -1182,11 +1214,11 @@ else if (this.branchingNumber == 3) {
     var qs2 = [];
     var qs3 = [];
     this.branchingArr.map((item, index2) => {
-
+   
       if (index2 == 0) {
         if (item.questions.length == 0) {
           content0.push(item)
-
+         
         }
         else {
 
@@ -1280,13 +1312,14 @@ else if (this.branchingNumber == 3) {
 
 
     return (
-      <div class="wrapper">
+      <div class="wrapper NeueFrutigerWorld">
 
         {this.branchingArr.map((item, index) =>
-          <div class="wrap-3">
+        
+          <div class="wrap-3"  onClick={this.allClicked.bind(this,index)}>
             <input type="radio" id={item.id} name="tabs"></input>
             <label htmlFor={item.id}><div> {item.contentLabel}</div><div class="cross"></div></label>
-
+           
             {(() => {
               if (index == 0 && content0.length != 0) {
                 return (
@@ -1295,7 +1328,7 @@ else if (this.branchingNumber == 3) {
                     {content0[0].contant1}
                     <div>
                       {content0[0].highlightText ?
-                        <span class="tip" data-tip={item.dataTip}>
+                        <span class="tip" title={item.dataTip} data-tip={item.dataTip}>
                           {item.highlightText}
                         </span>
                         : ''}
@@ -1317,13 +1350,13 @@ else if (this.branchingNumber == 3) {
                 return (
                   <div class="questions">
                     {qs0.map(i =>
-                      <div class="question-wrap">
-                        <input type="radio" id={i.q.id} name="question"></input>
-                        <label htmlFor={i.q.id}><div>{i.q.contentLabel}</div> <div class="cross"></div></label>
+                      <div class="question-wrap" >
+                        <input type="radio" id={i.q.id} name="question"  ></input>
+                        <label htmlFor={i.q.id}><div>{i.q.contentLabel}</div> <div  class="cross"></div></label>
 
                         <div class="content">
                           {i.q.highlightText != null ?
-                            <span class="tip" data-tip={item.dataTip}>
+                            <span class="tip"  title={item.dataTip}   data-tip={item.dataTip}>
                               {i.q.highlightText}
                             </span>
                             : ''}
@@ -1353,7 +1386,7 @@ else if (this.branchingNumber == 3) {
                     {content1[0].contant1}
                     <div>
                       {content1[0].highlightText ?
-                        <span class="tip" data-tip={item.dataTip}>
+                        <span class="tip"  title={item.dataTip}  data-tip={item.dataTip}>
                           {item.highlightText}
                         </span>
                         : ''}
@@ -1374,7 +1407,7 @@ else if (this.branchingNumber == 3) {
 
                         <div class="content">
                           {i.q.highlightText != null ?
-                            <span class="tip" data-tip={item.dataTip}>
+                            <span class="tip"   title={item.dataTip}  data-tip={item.dataTip}>
                               {i.q.highlightText}
                             </span>
                             : ''}
@@ -1405,7 +1438,7 @@ else if (this.branchingNumber == 3) {
                     {content2[0].contant1}
                     <div>
                       {content2[0].highlightText ?
-                        <span class="tip" data-tip={item.dataTip}>
+                        <span class="tip" title={item.dataTip}  data-tip={item.dataTip}>
                           {item.highlightText}
                         </span>
                         : ''}
@@ -1426,7 +1459,7 @@ else if (this.branchingNumber == 3) {
 
                         <div class="content">
                           {i.q.highlightText != null ?
-                            <span class="tip" data-tip={item.dataTip}>
+                            <span class="tip" title={item.dataTip}  data-tip={item.dataTip}>
                               {i.q.highlightText}
                             </span>
                             : ''}
@@ -1458,7 +1491,7 @@ else if (this.branchingNumber == 3) {
                     {content3[0].contant1}
                     <div>
                       {content3[0].highlightText ?
-                        <span class="tip" data-tip={item.dataTip}>
+                        <span class="tip" title={item.dataTip}  data-tip={item.dataTip}>
                           {item.highlightText}
                         </span>
                         : ''}
@@ -1470,16 +1503,17 @@ else if (this.branchingNumber == 3) {
                 )
               }
               else if (index == 3 && qs3.length != 0) {
+              
                 return (
                   <div class="questions">
                     {qs3.map(i =>
                       <div class="question-wrap">
                         <input type="radio" id={i.q.id} name="question"></input>
                         <label htmlFor={i.q.id}><div>{i.q.contentLabel}</div> <div class="cross"></div></label>
-
+                               
                         <div class="content">
                           {i.q.highlightText != null ?
-                            <span class="tip" data-tip={item.dataTip}>
+                            <span class="tip" title={item.dataTip}  data-tip={item.dataTip}>
                               {i.q.highlightText}
                             </span>
                             : ''}

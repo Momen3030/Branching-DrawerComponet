@@ -2,23 +2,21 @@
 <html dir="ltr" lang="en">
 
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
-  <title>Stencil Component Starter</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
+    <title>Stencil Component Starter</title>
 
-  <script type="module" src="/build/branchingdrawer.esm.js"></script>
-  <script nomodule src="/build/branchingdrawer.js"></script>
+    <script type="module" src="/build/branchingdrawer.esm.js"></script>
+    <script nomodule src="/build/branchingdrawer.js"></script>
 </head>
 
 <body>
-  <branching-drawer branching-number="4" 
-  
-  branch-one='[{
+    <!-- <branching-drawer branching-number="4" branch-one='[{
   "contentLabel": "from html",
   "highlightText": "from html",
   "contant": "Test0 from html",
   "dataTip": "from html",
-  "branchNumber":2,
+  "branchNumber":1,
   "subBranches": [
     {
       "subOne":
@@ -43,11 +41,7 @@
  
    ] 
 }  
-  ]'
-  
-
-
-  branch-two='[{
+  ]' branch-two='[{
     "contentLabel": "from html2",
     "highlightText": "from html2",
     "contant": "Test0 from html2",
@@ -77,9 +71,7 @@
    
      ] 
   }  
-    ]'
-
-    branch-three='[{
+    ]' branch-three='[{
       "contentLabel": "from html3",
       "highlightText": "from html3",
       "contant": "Test0 from html3",
@@ -109,13 +101,7 @@
      
        ] 
     }  
-      ]'
-      
-     
-  
-
-
-      branch-four='[{
+      ]' branch-four='[{
         "contentLabel": "from html4",
         "highlightText": "from html4",
         "contant": "Test0 from html4",
@@ -145,69 +131,126 @@
        
          ] 
       }  
-        ]'
-        
-       
-    
-  
+        ]'></branching-drawer>
+ -->
 
 
+    <script>
+        const component = document.createElement('branching-drawer');
+        component.setAttribute('content', JSON.stringify({
+            attributes: {
+                branchingNumber: 4,
+                branchOne: [{
+                    contentLabel: "from html1",
+                    highlightText: "from html",
+                    contant: "Test0 from html",
+                    dataTip: "from html",
+                    branchNumber: 1,
+                    subBranches: [{
+                            subOne: {
+                                contant: "Test1ddsContant",
+                                contentLabel: "Test111",
+                                highlightText: "terrwerwe1",
+                                dataTip: "fsdfsdf1"
+                            }
+
+                        }, {
+                            subTwo: {
+                                contant: "Test2ddsContant",
+                                contentLabel: "Test2",
+                                highlightText: "terrwerwe2",
+                                dataTip: "fsdfsdf2"
+                            }
+
+                        }
+
+                    ]
+                }],
+                branchTwo: [{
+                    "contentLabel": "from html2",
+                    "highlightText": "from html2",
+                    "contant": "Test0 from html2",
+                    "dataTip": "from html2",
+                    "branchNumber": 2,
+                    "subBranches": [{
+                            "subOne": {
+                                "contant": "Test1ddsCont2222222222222ant",
+                                "contentLabel": "Test2222222",
+                                "highlightText": "terrwer2222222222222we1",
+                                "dataTip": "fsdfsdf1"
+                            }
+
+                        }, {
+                            "subTwo": {
+                                "contant": "Test2ddsContant2222222222",
+                                "contentLabel": "Test222222222222",
+                                "highlightText": "terrwerwe2222222222",
+                                "dataTip": "fsdfsdf2222222222222"
+                            }
+
+                        }
+
+                    ]
+                }],
+                branchThree: [{
+                    "contentLabel": "from html3",
+                    "highlightText": "from html3",
+                    "contant": "Test0 from html3",
+                    "dataTip": "from html3",
+                    "branchNumber": 2,
+                    "subBranches": [{
+                            "subOne": {
+                                "contant": "Test33333333333ddsContant",
+                                "contentLabel": "Test3333",
+                                "highlightText": "terrwerwe3333333",
+                                "dataTip": "fsdfsdf3333"
+                            }
+
+                        }, {
+                            "subTwo": {
+                                "contant": "Test333333333333ddsContant",
+                                "contentLabel": "Test3333333333",
+                                "highlightText": "terrwerwe333333333333",
+                                "dataTip": "fsdfsdf33333333"
+                            }
+
+                        }
+
+                    ]
+                }],
+                branchFour: [{
+                    contentLabel: "from html4",
+                    highlightText: "from html4",
+                    contant: "Test0 from html4",
+                    dataTip: "from html3",
+                    branchNumber: 2,
+                    subBranches: [{
+                            subOne: {
+                                contant: "Test4444444ddsContant",
+                                contentLabel: "Test444444444444",
+                                highlightText: "terrwerwe4444",
+                                dataTip: "fsdfsdf44444"
+                            }
+
+                        }, {
+                            subTwo: {
+                                contant: "Test4222222ddsContant",
+                                contentLabel: "Test44444",
+                                highlightText: "terrwerwe44444444",
+                                dataTip: "fsdfsdf444444444"
+                            }
+
+                        }
+
+                    ]
+                }]
+
+            }
 
 
-
-
-
-
-
-
-
-
-
-
-  
-  
-  
-  ></branching-drawer>
-
- 
-
-
-  <!-- "subBranches": [
-   {
-     "subOne":
-     {
-       "contant": "Test1ddsContant",
-       "contentLabel": "Test1",
-        "highlightText":"terrwerwe1",
-        "dataTip":"fsdfsdf1"
-     }
-
-  },
-
-  {
-    "subTwo":
-    {
-      "contant": "Test2ddsContant",
-      "contentLabel": "Test2",
-       "highlightText":"terrwerwe2",
-       "dataTip":"fsdfsdf2"
-    }
-
- }
-
-  ] -->
-
-
-
-
-
-
-
-
-
-
-
-
+        }));
+        document.body.appendChild(component);
+    </script>
 
 
 
